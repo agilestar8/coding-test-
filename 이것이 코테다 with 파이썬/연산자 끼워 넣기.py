@@ -1,0 +1,37 @@
+n = int(input())
+
+data = list(map(int,input().split()))
+add,sub,mul,div = map(int,input().split())
+
+min_val = 1e9
+max_val = -1e9
+
+def dfs(i, now):
+    global add,sub,mul,div,min_val,max_val
+
+    # 모든 연산자를 다 사용한 경우
+    if i == n:
+        min_val = min(min_val, now)
+        max_val = max(max_val, now)
+
+    else:
+        if add > 0:
+            add -= 1
+            dfs(i+1, now + data[i])
+            add += 1
+        if sub > 0:
+            sub -= 1
+            dfs(i+1, now - data[i])
+            sub += 1
+        if mul > 0:
+            mul -= 1
+            dfs(i+1, now * data[i])
+            mul += 1
+        if div > 0:
+            div -= 1
+            dfs(i+1, int(now / data[i]))
+            div += 1
+
+dfs(1, data[0])
+print(min_val)
+print(max_val)

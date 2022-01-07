@@ -11,12 +11,12 @@ cnt = 0
 cnt2 = 0
 
 def DFS(x,y):
-    visit[x][y] = cnt
+    visit[x][y] = True
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
         if nx>=0 and nx<n and ny>=0 and ny<n and graph[nx][ny] == graph[x][y] and not visit[nx][ny]:
-            visit[nx][ny] = 1
+            visit[nx][ny] = True
             DFS(nx,ny)
 
 

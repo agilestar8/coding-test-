@@ -30,7 +30,7 @@ def dijkstra(start):
                 distance[i[0]] = cost   # 더 비용(cost)이 적으면 업데이트
                 heapq.heappush(q, (cost, i[0]))
 
-dijkstra(start)
+dijkstra(start) # start노드부터에서 부터의 최단거리 계산 시작
 
 for i in range(1,v+1):
     if distance[i] == inf:

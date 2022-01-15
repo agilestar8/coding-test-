@@ -26,9 +26,9 @@ for _ in range(m):
 # 위상정렬
 def topological_sorting():
 
-    for i in range(1,n+1):
+    for i in range(1,n+1):      # 진입차수 검사
         if inDegree[i] == 0:    # 진입차수가 0이면
-            q.append(i)         # 앞 순서
+            q.append(i)         # 앞 순서로
         
     while q:
         v = q.popleft()

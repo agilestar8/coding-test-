@@ -12,7 +12,7 @@ def dfs(x,y,str):
     # if len(str) == 6:
     #     if str not in arr:
     # arr.append(str)
-        # return
+    #     return
     if len(str) == 6:
         arr.add(str)
         return

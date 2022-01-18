@@ -45,10 +45,11 @@ def bfs(x,y):
                     
                     if 0 < graph[nx][ny] < shark_size:  # 상어가 크면
                         min_dist = dist
-                        dist_list.append((dist+1,nx,ny))
+                        dist_list.append((dist+1,nx,ny))    # 거리,좌표 저장
                         
                     if dist+1 <= min_dist:              # 
                         q.append((nx,ny,dist+1))
+                        
     if dist_list:
         dist_list.sort()
         return dist_list[0]

@@ -18,7 +18,7 @@ def dijkstra(start,end):
     heapq.heappush(q, (0, start, [start]))  # (가중치,시작노드,[시작경로]), 큐에 경로담는 리스트 추가
     
     while q:
-        dist, now, path = heapq.heappop(q)
+        dist, now, path = heapq.heappop(q)  
         
         if dist > distance[now]:
             continue
@@ -33,7 +33,7 @@ def dijkstra(start,end):
             cost = dist + d
             if cost < distance[next_node]:
                 distance[next_node] = cost
-                heapq.heappush(q, (cost, next_node, path+[next_node]))
+                heapq.heappush(q, (cost, next_node, path+[next_node]))  # 기존경로 + [다음경로]
     
 dijkstra(start,end)        
 

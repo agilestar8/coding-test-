@@ -4,14 +4,11 @@ from collections import deque
 
 n = int(input())
 graph = [list(map(int,input().split())) for _ in range(n)]
-visit = [[0]*n for i in range(n)]
 dx = [-1,0,1,0]
 dy = [0,-1,0,1]
 
 shark_size = 2 
 eat_cnt = 0
-fish_cnt = 0
-fish = []
 time = 0
 
 # 상어,물고기들의 좌표 저장
@@ -20,55 +17,52 @@ for i in range(n):
         if graph[i][j] == 9:        # 상어
             sx,sy = i,j
             graph[i][j] = 0
+            
 
-        elif 0 < graph[i][j] <=6:   # 물고기
-            fish_cnt +=1
-            fish.append((i,j))
-
-
-def bfs(x,y):
-    q = deque([(x,y,0)])
-    dist_list = []
-    min_dist = 1e9
-    visited = [[False]*n for _ in range(n)]
-    visited[x][y] = True
+def bfs(sx,sy):
+    q = deque([(sx,sy)])                # 상어위치에서 시작
+    visit = [[0]*n for _ in range(n)]   # 매bfs마다 visit 초기화
+    visit[sx][sy] = 1                   # 시작위치 방문처리
+    distance = [[0]*n for _ in range(n)]
+    fish = []   # 먹을 물고기 담기
     
     while q:
-        x,y,dist = q.popleft()
+        x,y = q.popleft()
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0<=nx<n and 0<=ny<n and not visited[nx][ny]:
-                
-                if graph[nx][ny] <= shark_size:         # 지나갈수 있으면
-                    visited[nx][ny] = True              
-                    
-                    if 0 < graph[nx][ny] < shark_size:  # 상어가 크면
-                        min_dist = dist
-                        dist_list.append((dist+1,nx,ny))    # 거리,좌표 저장
-                        
-                    if dist+1 <= min_dist:              # 
-                        q.append((nx,ny,dist+1))
-                        
-    if dist_list:
-        dist_list.sort()
-        return dist_list[0]
-    else:
-        return False
+            # 제일 가까운 물고기찾아서 잡아먹을준비(위치랑 거리계산)
+            if 0<=nx<n and 0<=ny<n and not visit[nx][ny]:   
 
-while fish_cnt :    # 물고기있으면
-    result = bfs(sx,sy)
-    if not result:
+                if graph[nx][ny] <= shark_size:  # 상어보다작은물고기면(빈칸도 포함),
+                    distance[nx][ny] = distance[x][y] + 1
+                    visit[nx][ny] = 1 
+                    q.append((nx,ny))
+                    
+                if graph[nx][ny] < shark_size and graph[nx][ny] != 0:   # 물고기있고, 상어보다 작으면 
+                                                                        # (빈칸아니어야 fish에 추가가능, 상어보다 작다고 추가하먼 x)
+                    fish.append((nx,ny,distance[nx][ny]))               # 먹킷리스트에 추가
+                    
+    if fish:
+        fish.sort(key = lambda x : (x[2],x[0],x[1]))  # 거리,x,y순 정렬
+        return fish[0][0],fish[0][1],fish[0][2] # 가장 우선순위인(배열의 가장왼쪽) 물고기의 x,y,거리 return
+    else:
+        return -1,-1,-1
+                    
+    
+while True:
+        
+    sx,sy,dist = bfs(sx,sy) # bfs로 우선순위물고기 좌표가져옴
+    if sx == -1:
         break
     
-    sx,sy = result[1],result[2]
-    time += result[0]
-
-    eat_cnt+=1
-    fish_cnt-=1
-    if shark_size == eat_cnt:
-        shark_size +=1
-        eat_cnt =0
-    graph[sx][sy] = 0
+    graph[sx][sy] = 0       # 그 좌표 물고기 잡아먹음
+    eat_cnt += 1            # 먹은수 +1
     
+    if eat_cnt == shark_size:
+        eat_cnt = 0
+        shark_size += 1
+    
+    time += dist
+
 print(time)

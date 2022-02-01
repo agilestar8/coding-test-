@@ -1,4 +1,4 @@
-import sys
+import sys,heapq
 input = sys.stdin.readline
 
 n,k = map(int,input().split())
@@ -10,28 +10,26 @@ for i in range(k):
     if tool[i] in multi_tap:    # 멀티탭에 꽂혀있으면
         continue                # 무시
 
-    elif len(multi_tap) < n:    # 멀티탭 자리 있으면
+    elif len(multi_tap) < n:        # 멀티탭 자리 있으면
         multi_tap.append(tool[i])   # 꽂기
         continue
     
-    out = 0     # 뽑을 플러그
-    outidx = 0  # 뽑은 이후, 몇번째에 사용되는지
+    # 멀티탭이 꽉 찼을 때
+    idxs = []
     for j in range(n):
-        try:                     # 뒤에서 또 사용된다면,
-            idx = tool[i:].index(multi_tap[j]) 
-            if idx > outidx:    
-                out = j         # 인덱스 저장해뒀다가 
-                outidx = idx    # 이후에 또 사용할 인덱스
+        try:     # 다시 사용해야 되면
+            idx = tool[i:].index(multi_tap[j]) # 얼마나 이후에 사용하는지 세서
+        except:  # 다시 사용 안해도 되면
+            idx = 101   # 사용회수 초과로 기록
+            
+        idxs.append(idx)   # 기록
 
-        except:                 # 이후 사용안되면,
-            out = j             # 인덱스 저장해서
-            break               # 나가서 바로 뽑음
-        
-    multi_tap[out] = tool[i]    # 뽑을 자리엔 현재도구를 꽂는다
-    cnt += 1                    # 하나 뽑았음
+    outidx = idxs.index(max(idxs))  # 가장 나중에 사용하는 것부터 제거(먼저 사용할 플러그는 놔둠, 그래야 절약) 
+    del multi_tap[outidx]       # 제거
+    multi_tap.append(tool[i])   # 교체
+    cnt += 1                    
     
 print(cnt)
-        
         
         
         

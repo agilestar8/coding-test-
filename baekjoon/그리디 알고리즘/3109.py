@@ -18,13 +18,12 @@ def dfs(x,y):
         ny = y + dy[i]
             
         if 0<=nx<r and 0<=ny<c and graph[nx][ny] == "." and not visit[nx][ny]: # 다음칸이 빈칸이면
-            visit[nx][ny] = 1   # 방문하고
-            if dfs(nx,ny):      # DFS
+            visit[nx][ny] = 1   # 방문하고            
+            if dfs(nx,ny):      # 끝까지 DFS가 가능하면, 계속
                 return True     
 
-    return False
+    return False    # 끝까지 안된다면, DFS종료
          
-
 for i in range(r):
     dfs(i,0)
 

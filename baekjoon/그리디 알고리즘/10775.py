@@ -11,8 +11,9 @@ parent = [i for i in range(g+1)]
 def find(curr):
     if parent[curr] == curr:
         return curr
-    parent[curr] = find(parent[curr])
-    return parent[curr]
+    else:
+        parent[curr] = find(parent[curr])
+        return parent[curr]
 
 def union(a, b):
     a = find(a)

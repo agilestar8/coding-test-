@@ -1,19 +1,19 @@
 import sys
 input = sys.stdin.readline
 
-g = int(input())
-p = int(input())
-arr = [int(input()) for _ in range(p)] 
+g = int(input())    # 게이트 수
+p = int(input())    # 비행기 수
+arr = [int(input()) for _ in range(p)]  # 도킹할 비행기들
 
 # case2) 유니온 파인드
-parent = [i for i in range(g+1)] 
+parent = [i for i in range(g+1)]    # 각 게이트는 자기자신이 루트
 
-def find(curr):
-    if parent[curr] == curr:
-        return curr
+def find(a):
+    if parent[a] == a:
+        return a
     else:
-        parent[curr] = find(parent[curr])
-        return parent[curr]
+        parent[a] = find(parent[a])
+        return parent[a]
 
 def union(a, b):
     a = find(a)
@@ -21,12 +21,14 @@ def union(a, b):
     parent[b] = a
 
 ans = 0
-for g in arr:
-    p = find(g) # 내가 지금 도킹하려는 게이트
-    if p == 0:
-        break
-    ans += 1
-    union(p-1, p) # 이전 게이트랑 union
+for i in arr:       # 내가 지금 도킹하려는 게이트를
+    p = find(i)     # 루트(최우선)인 p번 게이트에 넣는다
+
+    if p == 0:      # 루트가 0번 == 빈자리가 없다
+        break       # break
+
+    ans += 1        # 루트에 넣었다면,
+    union(p-1, p)   # p-1번 게이트랑 union == 루트를 왼쪽게이트로 바꿈
 
 print(ans)
 

@@ -18,9 +18,9 @@ for i in range(k):
     idxs = []
     for j in range(n):
         try:     # 다시 사용해야 되면
-            idx = tool[i:].index(multi_tap[j]) # 얼마나 이후에 사용하는지 세서
+            idx = tool[i:].index(multi_tap[j]) # 얼마나 이후에 사용하는지의 인덱스 추출
         except:  # 다시 사용 안해도 되면
-            idx = 101   # 사용회수 초과로 기록
+            idx = 101   # 사용회수 초과, 최우선으로 제거하는 인덱스를 가짐
             
         idxs.append(idx)   # 기록
 

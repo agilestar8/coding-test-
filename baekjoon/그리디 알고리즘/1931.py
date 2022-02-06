@@ -14,7 +14,7 @@ ans = 0
 end = 0
 
 for i in range(n):
-    if disc_time[i][0] >= end:  # 시작시간이 종료시간보다 늦거나 같으면
+    if disc_time[i][0] >= end:  # 다음 시작시간이 현재 종료시간 이후면, 강의실 이용 가능
         end = disc_time[i][1]
         ans += 1
         

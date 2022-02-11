@@ -9,8 +9,9 @@ def solution(phone_book):
     phone_book.sort()
     
     for i in range(len(phone_book)-1):
-        # if phone_book[i] in phone_book[i+1]:# 이것은 중간에 접두사가 포함되도 만족하므로 틀림
-        if phone_book[i] == phone_book[i+1][:len(phone_book[i])]:  # 접두사 길이만큼만 같아야함
+        # if phone_book[i] in phone_book[i+1]: # 이것은 문자 중간에 접두사가 포함되도 만족하므로 틀림
+        
+        if phone_book[i] == phone_book[i+1][:len(phone_book[i])]:  # 문자열 앞에서 접두사 길이만큼만 같아야함
           return False
 
     return True

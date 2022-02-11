@@ -8,7 +8,7 @@ def solution(people, limit):
     q = deque(people)
     boat = 0
 
-    while len(q) > 1:        
+    while len(q) > 1:          
         if q[0]+q[-1] <= limit:
             q.popleft()
             q.pop()

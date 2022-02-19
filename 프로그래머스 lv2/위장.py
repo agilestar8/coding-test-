@@ -22,6 +22,7 @@ def solution(clothes):
     return cnt-1    # 아무것도 안입었을때까지 포함한 것이므로 제외
 
 
+
 # case2) Counter로 세기 (위와 같음)
 # dict = Counter([kind for cloth, kind in clothes])
 # answer = reduce(lambda x,y : x*(y+1), dict.values(),1)-1

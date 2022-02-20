@@ -23,7 +23,7 @@ def solution(expression):
             arr.append(tmp)   # 썼던 숫자단위를 arr에 넣기
             arr.append(i)     # 그 다음 연산기호 넣기
             tmp=""            # tmp 초기화
-    arr.append(tmp)
+    arr.append(tmp) # 마지막 숫자는 추가안해줬으므로 추가해줘야함
 
     answer = 0
     for op in oplist:

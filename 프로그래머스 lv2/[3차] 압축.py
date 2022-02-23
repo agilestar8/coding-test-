@@ -18,8 +18,8 @@ def solution(msg):
         if msg[w:c+1] not in dic: # w+c가 사전에 없으면
             dic[msg[w:c+1]] = len(dic) + 1 # 사전에 추가
             answer.append(dic[msg[w:c]]) # 출력
-            w = c 
+            w = c   # 현재글자 + 다음글자가 사전에 없다면 w = c , c = c + 1
             
-        c += 1
+        c += 1      # 현재글자 + 다음글자가 사전에 있다면 w는 변화없음, c = c + 1
 
     return answer

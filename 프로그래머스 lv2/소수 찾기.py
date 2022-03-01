@@ -1,23 +1,27 @@
-from itertools import permutations
+def conv(num,base):
+    t = "0123456789ABCDEF"
+    q,r = divmod(num,base)
+    return conv(q,base) + t[r] if q else t[r]
 
 def isPrime(number):
-    if number in (0, 1):
+    if number in (0, 1): # 소수는 2부터
         return False
-    for i in range(2, number):
+    for i in range(2, int(number**0.5)+1): # 약수 개수까지만 확인해도 됨
         if number % i == 0:
             return False
-
     return True
+                        
+                
+def solution(n, k):
+    answer = 0
+                           
+    new_n = str(conv(n,k))
+    a = new_n.split('0')
+    b = [i for i in a if i] # 0이 이어진 부분 제거
+    b = map(int,b)
 
-def solution(numbers):
-    cnt = 0
-    arr = []
-    for i in range(1, len(numbers) + 1):
-        arr += (list(permutations(numbers, i)))
-    arr2 = set([int("".join(i)) for i in arr])
+    for i in b:
+        if isPrime(i):
+            answer += 1
 
-    for i in arr2:
-        if isPrime(i) == True:
-            cnt += 1
-
-    return cnt
+    return answer

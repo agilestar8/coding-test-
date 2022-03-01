@@ -7,24 +7,21 @@ reserve = [1,3,5]
 n = 5
 
 def solution(n, lost, reserve):
-    answer = 0 
-    for i in range(1, n+1): # 1번부터 5번까지
-        if i not in lost: #안 잃어버린 학생은
-            answer += 1 # 수업 참가 가능
+    
+    # 여분 가져온 애가 도난당했을 경우때문에
+    # 1. 도난 명단에서 제거(여분으로 채울거니까)
+    # 2. 여분 명단에서 제거(여분 쓸거니까)
+        
+    lost2 = list(set(lost)-set(reserve))    # 여기서 lost가 바뀌므로, lost2 따로 생성 
+    reserve2 = list(set(reserve)-set(lost)) 
+    
+    cnt = 0
+    for i in lost2:
+        if i-1 in reserve2:
+            reserve2.remove(i-1)
+            cnt += 1
+        elif i+1 in reserve2:
+            reserve2.remove(i+1)
+            cnt += 1
             
-        else: # 잃어버린 학생중에
-            if i in reserve: #여분 있는 학생이면
-                answer += 1 # 수업 참가 가능
-                reserve.remove(i) # 여분에서 꺼내입음
-                lost.remove(i) # 잃어버린 것 땜빵으로 해결했으니 명단에서 제외
-
-    for i in lost: #잃어버리고 여분도 없어서 빌려야 하는 학생
-        if i-1 in reserve: # 앞 번호학생이 여분이 있으면
-            answer += 1 # 빌려받고 수업 참가 가능
-            reserve.remove(i-1) # 빌림
-
-        elif i+1 in reserve: # 앞번호는 여분 없고, 뒷 번호학생이 여분 있으면
-            answer +=1 # 빌려서 참가 가능
-            reserve.remove(i+1)
-
-    return answer
+    return n-len(lost2)+cnt

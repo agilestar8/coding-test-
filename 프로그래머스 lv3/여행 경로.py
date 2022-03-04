@@ -14,7 +14,6 @@ def solution(tickets):
         dic[k] = v
     print(dic)
     
-    
     # 방문시작
     answer = []  
     q = ["ICN"] # ICN에서 시작

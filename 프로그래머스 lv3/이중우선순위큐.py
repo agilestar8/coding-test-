@@ -13,7 +13,7 @@ def solution(operations):
                 if '-' in num:  # 최소값 삭제
                     heapq.heappop(q)
                 else:
-                    q.pop()
+                    q.remove(max(q)) # 최대값 삭제
          
     if q:
         return [max(q),min(q)]

@@ -1,21 +1,17 @@
 import sys
-input = sys.stdin.readline
+input = sys.stdin.readline    
 
 t = int(input())
 for _ in range(t):
+
     n = int(input())
-    if n == 0:
-        print(0)
-        continue
-    elif n == 1:
-        print(1)
-        continue
-    
-    dp = [0]*(n+1)
-    dp[0] = 0
-    dp[1] = 1
-    
+
+    # 피보나치 : 0 1 1 2 3 5 8 ...    
+    zero = [1,0] # n번째에서의 0의 개수
+    one = [0,1]  # n번째에서의 1의 개수
     for i in range(2,n+1):
-        dp[i] = dp[i-1] + dp[i-2]
-        
+        zero.append(zero[i-1] +zero[i-2])
+        one.append(one[i-1]+one[i-2])
     
+    print(zero[n], one[n])
+    # print(zero, one)

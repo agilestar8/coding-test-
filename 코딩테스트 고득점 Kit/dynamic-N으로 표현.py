@@ -1,8 +1,8 @@
 def solution(N, number):
-    s = [set() for x in range(8)]  # 최소값 8
+    s = [set() for _ in range(8)]  # 최소값 8
     for i, x in enumerate(s, start=1):
         x.add(int(str(N) * i))
-        # ex) 5 55 555 5555 ...
+        # ex) 5 55 555 5555 ... 55555555
 
     for i in range(1, len(s)):
         for j in range(i):  # ex 13 22 31 되게..

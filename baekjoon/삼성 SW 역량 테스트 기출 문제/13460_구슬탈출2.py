@@ -62,4 +62,3 @@ def bfs():
     print(-1)
 
 bfs()
-            
